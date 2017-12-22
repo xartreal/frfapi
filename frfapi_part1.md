@@ -1,19 +1,19 @@
-##Session
-###Open session
+## Session
+### Open session
 `GET https://freefeed.net/v1/session?username=myusername&password=mypassword`
 
 **Params**
 
 *username*, *password* : text
 
-####CURL example
+#### CURL example
 `curl -d "username=myusername" -d "password=mypassword" https://freefeed.net/v1/session
 `
-####Returns
+#### Returns
 json (with *authToken*)
 
-##Users
-###Whoami
+## Users
+### Whoami
 `GET https://freefeed.net/v1/users/whoami`
 `X-Authentication-Token: authToken`
 
@@ -21,14 +21,14 @@ json (with *authToken*)
 
 *authToken* : token (see "Open Session")
 
-####CURL example
+#### CURL example
 `curl -H "X-Authentication-Token:authToken" https://freefeed.net/v1/users/whoami`
-####Returns
+#### Returns
 json (with user profile)
 or `{"err":"Not found"}` if authToken invalid
 
-##Attachments
-###Upload attachments
+## Attachments
+### Upload attachments
 ```
 POST https://freefeed.net/v1/attachments
 X-Authentication-Token: authToken
@@ -39,13 +39,13 @@ Content-type: multipart/form-data
 
 *authToken* : token (see "Open Session")
 
-####CURL example
+#### CURL example
 `curl -H "X-Authentication-Token:mytoken" -F "file=@x5.png" https://freefeed.net/v1/attachments`
-####Returns
+#### Returns
 json (with *attachments.id*)
 
-##Timeline
-###Home timeline
+## Timeline
+### Home timeline
 ```
 GET https://freefeed.net/v1/timelines/home?offset=NN
 X-Authentication-Token: authToken
@@ -56,13 +56,13 @@ X-Authentication-Token: authToken
 
 *NN*: offset in timeline (may be 0,30,60...)
 
-####CURL example
+#### CURL example
 `curl -H "X-Authentication-Token:authToken" https://freefeed.net/v1/timelines/home?offset=NN`
-####Returns
+#### Returns
 json (with timeline)
 or `{"err":"Not found"}` if authToken invalid
 
-###User timeline
+### User timeline
 ```
 GET https://freefeed.net/v1/timelines/username?offset=NN
 X-Authentication-Token: authToken
@@ -75,13 +75,13 @@ X-Authentication-Token: authToken
 
 *NN* : offset in timeline (may be 0,30,60...)
 
-###'My Discussions' timeline
+### 'My Discussions' timeline
 ```
 GET https://freefeed.net/v1/timelines/filter/discussions?offset=NN
 X-Authentication-Token: authToken
 ```
-##Posts
-###Get post
+## Posts
+### Get post
 ```
 GET https://freefeed.net/v1/posts/postid?maxComments=all&maxLikes=all
 X-Authentication-Token: authToken
@@ -92,13 +92,13 @@ X-Authentication-Token: authToken
 
 *postid*: post id
 
-####CURL example
+#### CURL example
 `curl -H "X-Authentication-Token:authToken" https://freefeed.net/v1/posts/postid?maxComments=all&maxLikes=all`
-####Returns
+#### Returns
 json (with post content)
 or `{"err":"Not found"}` if authToken or postid invalid
 
-###Add new post
+### Add new post
 ```
 POST https://freefeed.net/v1/posts
 Content-type: application/json; charset=utf-8
@@ -117,13 +117,13 @@ X-Authentication-Token: authToken
 
 `"attachments":["id1","id2"]` if two (or more) attachment
 
-####CURL example
+#### CURL example
 ```
 curl -i -X POST -H "Content-type:application/json; charset=utf-8" -H "X-Authentication-Token:mytoken" -d '{"post":{"body":"Это текст вашей записи","createdAt":null,"updatedAt":null,"isHidden":false,"createdBy":null,"attachments":["50d520f9-a953-421a-bc8d-ccbed5cbcd38"],"likes":[],"groups":[],"timeline":null},"meta":{"feeds":"myusername"}}' https://freefeed.net/v1/posts
 ```
-####Returns
+#### Returns
 json (with postid)
-###Edit post
+### Edit post
 ```
 PUT /v1/posts/postid
 X-Authentication-Token: authToken
@@ -137,11 +137,11 @@ X-Authentication-Token: authToken
 
 *ptext*: post text
 
-####CURL example
+#### CURL example
 ```
 curl -i -X PUT -H "Content-type:application/json; charset=utf-8" -H "X-Authentication-Token:mytoken" -d '{"post":{"body":"Это новый текст вашей записи"}}' https://freefeed.net/v1/posts/30d520f9-a953-421a-bc8d-ccbed5cbcd38
 ```
-###Delete post
+### Delete post
 ```
 DELETE /v1/posts/postid
 X-Authentication-Token: authToken
@@ -152,11 +152,11 @@ X-Authentication-Token: authToken
 
 *postid* : post id
 
-####CURL example
+#### CURL example
 ```
 curl -i -X DELETE -H "X-Authentication-Token:mytoken"  https://freefeed.net/v1/posts/30d520f9-a953-421a-bc8d-ccbed5cbcd38
 ```
-###Like post
+### Like post
 ```
 POST /v1/posts/postid/like
 X-Authentication-Token: authToken
@@ -167,11 +167,11 @@ X-Authentication-Token: authToken
 
 *postid* : post id
 
-####CURL example
+#### CURL example
 ```
 curl -i -X POST -H "X-Authentication-Token:mytoken"  https://freefeed.net/v1/posts/30d520f9-a953-421a-bc8d-ccbed5cbcd38/like
 ```
-###Hide post
+### Hide post
 ```
 POST /v1/posts/postid/hide
 X-Authentication-Token: authToken
@@ -182,11 +182,11 @@ X-Authentication-Token: authToken
 
 *postid* : post id
 
-####CURL example
+#### CURL example
 ```
 curl -i -X POST -H "X-Authentication-Token:mytoken"  https://freefeed.net/v1/posts/30d520f9-a953-421a-bc8d-ccbed5cbcd38/hide
 ```
-###Unlike post
+### Unlike post
 ```
 POST /v1/posts/postid/unlike
 X-Authentication-Token: authToken
@@ -197,12 +197,12 @@ X-Authentication-Token: authToken
 
 *postid* : post id
 
-####CURL example
+#### CURL example
 ```
 curl -i -X POST -H "X-Authentication-Token:mytoken"  https://freefeed.net/v1/posts/30d520f9-a953-421a-bc8d-ccbed5cbcd38/unlike
 ```
-##Comments
-###Add new comment
+## Comments
+### Add new comment
 ```
 POST /v1/comments
 Content-type: application/json; charset=utf-8
@@ -217,11 +217,11 @@ X-Authentication-Token: authToken
 
 *postid* : post id
 
-####CURL example
+#### CURL example
 ```
 curl -i -X POST -H "Content-type:application/json; charset=utf-8" -H "X-Authentication-Token:mytoken" -d '{"comment":{"body":"Текст комментария","createdAt":null,"updatedAt":null,"postId":"30d520f9-a953-421a-bc8d-ccbed5cbcd38","createdBy":null,"post":null}}' https://freefeed.net/v1/comments
 ```
-###Edit comment
+### Edit comment
 ```
 PUT /v1/comments/commentid
 X-Authentication-Token: authToken
@@ -235,11 +235,11 @@ X-Authentication-Token: authToken
 
 *ctext*: comment text
 
-####CURL example
+#### CURL example
 ```
 curl -i -X PUT -H "Content-type:application/json; charset=utf-8" -H "X-Authentication-Token:mytoken" -d '{"comment":{"body":"Это новый комментария"}}' https://freefeed.net/v1/comments/90d520f9-a953-421a-bc8d-ccbed5cbcd38
 ```
-###Delete comment
+### Delete comment
 ```
 DELETE /v1/comments/commentid
 X-Authentication-Token: authToken
@@ -250,7 +250,7 @@ X-Authentication-Token: authToken
 
 *commentid* : comment id
 
-####CURL example
+#### CURL example
 ```
 curl -i -X DELETE -H "X-Authentication-Token:mytoken"  https://freefeed.net/v1/comments/90d520f9-a953-421a-bc8d-ccbed5cbcd38
 ```

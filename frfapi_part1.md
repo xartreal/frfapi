@@ -1,6 +1,6 @@
 ## Session
 ### Open session
-`GET https://freefeed.net/v1/session?username=myusername&password=mypassword`
+`POST https://freefeed.net/v1/session?username=myusername&password=mypassword`
 
 **Params**
 
